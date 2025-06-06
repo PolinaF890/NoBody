@@ -140,12 +140,12 @@ private System.Collections.IEnumerator FlyAwayWithChime(GameObject chime)
 
     Vector3 start = transform.position;
     Vector3 end = childWaitSpace.position;
-    Vector3 controlPoint = (start + end) / 2f + Vector3.up * 1.5f;
+    Vector3 controlPoint = (start + end) / 2f + Vector3.down * 1.5f;
 
-    Vector3 chimeOffset = Vector3.up * 1.2f;
+    Vector3 chimeOffset = Vector3.down * 0.25f;
 
-    // 随机的轻微水平漂移（左右偏 0.2 米）
-    float horizontalWiggleRange = 0.2f;
+    // 随机的轻微水平漂移
+    float horizontalWiggleRange = 0.3f;
     float horizontalOffset = Random.Range(-horizontalWiggleRange, horizontalWiggleRange);
     Vector3 lateralOffset = new Vector3(horizontalOffset, 0f, 0f);
 
@@ -169,11 +169,11 @@ private System.Collections.IEnumerator FlyAwayWithChime(GameObject chime)
 
         // 设置位置
         transform.position = bezierPos + floatingOffset;
-        chime.transform.position = bezierPos + chimeOffset + floatingOffset;
+        //chime.transform.position = bezierPos + chimeOffset + floatingOffset;
 
         // 轻微旋转
         transform.Rotate(Vector3.up, 10f * Time.deltaTime);
-        chime.transform.Rotate(Vector3.up, 20f * Time.deltaTime);
+        //chime.transform.Rotate(Vector3.up, 20f * Time.deltaTime);
 
         time += Time.deltaTime;
         yield return null;
