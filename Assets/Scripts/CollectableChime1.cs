@@ -9,7 +9,10 @@ public class CollectableChime1 : MonoBehaviour
 
     [Header("Visibility & Sound Control")]
     public MonoBehaviour triggerScript; // GazeTarget1 等
-    public MonoBehaviour soundScript;   // 声音控制脚本
+    //public MonoBehaviour soundScript;   // 声音控制脚本
+
+    //here chang to the sound object for easy control
+    public AudioSource soundSource; 
 
     // private static int collectedCount = 0;
     // private static float offsetStep = 0.2f;
@@ -30,8 +33,8 @@ public class CollectableChime1 : MonoBehaviour
         if (triggerScript != null)
             triggerScript.enabled = false;
 
-        if (soundScript != null)
-            soundScript.enabled = false;
+        //if (soundScript != null)
+        //    soundScript.enabled = false;
 
         // // 将 wind chime 添加到 backpack 上的挂点
         // if (windChimePrefab != null && backpack != null)
@@ -68,6 +71,12 @@ public class CollectableChime1 : MonoBehaviour
         transform.parent.SetParent(attachPoint); // 确保挂点正确
 
         yield return new WaitForSeconds(0.2f);
+
+        //if (soundScript != null)
+        //    soundScript.enabled = false; // not gamepbject neither
+        if (soundSource != null)
+            soundSource.Stop();
+
 
     }
 

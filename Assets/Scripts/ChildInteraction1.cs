@@ -16,10 +16,21 @@ public class ChildInteraction1 : MonoBehaviour
 
     [Header("Exchange Feedback")]
     public GameObject childLight; 
-    public Transform sphereTargetAttachPoint;   
+    public Transform sphereTargetAttachPoint;
+
+    //[Header("Child Transform (optional override)")]
+    //public Transform childTransform;
 
     [Header("Post-Exchange Movement")]
     public Transform childWaitSpace;
+
+    [Header("Child Sound")]
+    //public AudioSource soundSource;
+    public AudioSource dialogue;
+    public AudioSource thankyou;
+    public AudioSource fullMelody;
+    public AudioSource singleMelody;
+
 
     private bool hasReceivedChime = false;
 
@@ -66,6 +77,12 @@ public class ChildInteraction1 : MonoBehaviour
         }
     }
 
+    //private Transform GetChildTransform()
+    //{
+    //    return childTransform != null ? childTransform : transform;
+    //}
+
+
     private System.Collections.IEnumerator MoveChimeToChild(GameObject chime)
     {
         float duration = 3f;
@@ -79,6 +96,7 @@ public class ChildInteraction1 : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
 
         chime.transform.position = end;
         chime.transform.SetParent(this.transform);
@@ -147,6 +165,8 @@ private System.Collections.IEnumerator FlyAwayWithChime(GameObject chime)
         float floatOffsetY = Mathf.Sin(time * Mathf.PI * 0.5f) * 0.2f * floatStrength; // 慢速，幅度小
         Vector3 floatingOffset = Vector3.up * floatOffsetY;
 
+        //Transform target = GetChildTransform();
+
         // 设置位置
         transform.position = bezierPos + floatingOffset;
         chime.transform.position = bezierPos + chimeOffset + floatingOffset;
@@ -170,8 +190,20 @@ private System.Collections.IEnumerator FlyAwayWithChime(GameObject chime)
     private System.Collections.IEnumerator CompleteExchangeAndFly(GameObject chime)
     {
         yield return StartCoroutine(MoveChimeToChild(chime));
+
+        dialogue.gameObject.SetActive(false);
+        singleMelody.gameObject.SetActive(false);
+        thankyou.gameObject.SetActive(true);
+
+        childLight.gameObject.SetActive(true);
         yield return StartCoroutine(MoveChildSphereToAttachPoint());
+
+        fullMelody.gameObject.SetActive(true);
+
         yield return StartCoroutine(FlyAwayWithChime(chime));
+
+        //if (dialogue != null)
+        //    dialogue.Stop();
     }
 
 
