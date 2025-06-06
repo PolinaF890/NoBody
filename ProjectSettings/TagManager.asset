@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
+  - Thread
+  - WindChime
+  - Child
+  - GazeInteractable
   layers:
   - Default
   - TransparentFX

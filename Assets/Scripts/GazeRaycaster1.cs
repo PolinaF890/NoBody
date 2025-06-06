@@ -24,6 +24,7 @@ public class GazeRaycaster1 : MonoBehaviour
     {
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
         RaycastHit hit;
+        Debug.Log("Gazed");
 
         if (Physics.Raycast(ray, out hit))
         {
