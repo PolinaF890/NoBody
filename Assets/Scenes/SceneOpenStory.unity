@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 190482230}
   - component: {fileID: 190482234}
   - component: {fileID: 190482233}
+  - component: {fileID: 190482235}
   m_Layer: 0
   m_Name: StoryManager
   m_TagString: Untagged
@@ -158,7 +159,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 181
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -226,7 +227,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 1.1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -250,23 +251,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textDisplay: {fileID: 1672641008}
   sentences:
-  - "In the boundless expanse of the Sanzu River, a head awakens\u2014disembodied,
-    and lost.\nIt knows nothing of who it is or where it came from.\nIt has no hands
-    to touch the world, but it hears faint sounds\u2014like wind chimes caught in
-    the breeze."
-  - "Something pulls at it, faint and far away\u2014\na thread, invisible for now,
-    tied to a forgotten body."
-  - "The head has no body, but it senses fragments of memory: melodies, emotions,
-    unsaid wishes.\nIt can help others\u2014and it can communicate."
-  - "On the riverbanks, children with red hats sit.\nThey are souls who left too
-    early\u2014never having known good or evil, yet full of longing."
+  - 'In the boundless expanse of the Sanzu River, a head awakens-disembodied, and
+    lost.
+
+    It knows nothing of who it is or where it came from.
+
+    It has no
+    hands to touch the world, but it hears faint sounds-like wind chimes caught in
+    the breeze.'
+  - 'Something pulls at it, faint and far away-
+
+    a thread, invisible for now,
+    tied to a forgotten body.'
+  - 'The head has no body, but it senses fragments of memory: melodies, emotions,
+    unsaid wishes.
+
+    It can help others-and it can communicate.'
+  - 'On the riverbanks, children with red hats sit.
+
+    They are souls who left
+    too early-never having known good or evil, yet full of longing.'
   - 'Each time the head helps, the thread shimmers.
 
     Perhaps, in time, it will
     lead back to what was lost.'
   typingSpeed: 0.03
   pauseAfterSentence: 1.5
-  fadeDuration: 0.07
+  fadeDuration: 0.09
 --- !u!4 &190482232
 Transform:
   m_ObjectHideFlags: 0
@@ -295,13 +306,13 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 0a6d5d8e9635b5842b626480bc7d242e, type: 3}
   m_Resource: {fileID: 8300000, guid: 0a6d5d8e9635b5842b626480bc7d242e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.473
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -393,6 +404,103 @@ AudioSource:
   m_Resource: {fileID: 8300000, guid: c500261c05211db409695421b6f0354d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.179
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &190482235
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190482229}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
