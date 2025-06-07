@@ -22,6 +22,7 @@ public class ChildInteraction1 : MonoBehaviour
     //public Transform childTransform;
 
     [Header("Post-Exchange Movement")]
+    public Transform chimeAttachPoint;
     public Transform childWaitSpace;
 
     [Header("Child Sound")]
@@ -126,63 +127,116 @@ public class ChildInteraction1 : MonoBehaviour
         childLight.transform.SetParent(sphereTargetAttachPoint);
     }
 
-private System.Collections.IEnumerator FlyAwayWithChime(GameObject chime)
-{
-    if (childWaitSpace == null)
+    //private System.Collections.IEnumerator FlyAwayWithChime(GameObject chime)
+    //{
+    //    if (childWaitSpace == null)
+    //    {
+    //        Debug.LogWarning("Missing childWaitSpace reference.");
+    //        yield break;
+    //    }
+
+    //    float duration = 40f;
+    //    float floatDuration = 5f; // 起伏只持续前5秒
+    //    float time = 0f;
+
+    //    Vector3 start = transform.position;
+    //    Vector3 end = childWaitSpace.position;
+    //    Vector3 controlPoint = (start + end) / 2f + Vector3.down * 1.5f;
+
+    //    Vector3 chimeOffset = Vector3.down * 0.25f;
+
+    //    // 随机的轻微水平漂移
+    //    float horizontalWiggleRange = 0.3f;
+    //    float horizontalOffset = Random.Range(-horizontalWiggleRange, horizontalWiggleRange);
+    //    Vector3 lateralOffset = new Vector3(horizontalOffset, 0f, 0f);
+
+    //    while (time < duration)
+    //    {
+    //        float t = time / duration;
+    //        float easedT = t * t * (3f - 2f * t); // EaseInOut
+
+    //        // 贝塞尔路径（带少量横向偏移）
+    //        Vector3 bezierPos =
+    //            Mathf.Pow(1 - easedT, 2) * start +
+    //            2 * (1 - easedT) * easedT * (controlPoint + lateralOffset) +
+    //            Mathf.Pow(easedT, 2) * end;
+
+    //        // 轻微浮动：1~2次慢速起伏
+    //        float floatStrength = Mathf.Clamp01(1 - (time / floatDuration));
+    //        float floatOffsetY = Mathf.Sin(time * Mathf.PI * 0.5f) * 0.2f * floatStrength; // 慢速，幅度小
+    //        Vector3 floatingOffset = Vector3.up * floatOffsetY;
+
+    //        //Transform target = GetChildTransform();
+
+    //        // 设置位置
+    //        transform.position = bezierPos + floatingOffset;
+    //        //chime.transform.position = bezierPos + chimeOffset + floatingOffset;
+
+    //        // 轻微旋转
+    //        transform.Rotate(Vector3.up, 10f * Time.deltaTime);
+    //        //chime.transform.Rotate(Vector3.up, 20f * Time.deltaTime);
+
+    //        time += Time.deltaTime;
+    //        yield return null;
+    //    }
+
+    //    // 精准落点
+    //    transform.position = end;
+    //    chime.transform.position = end + chimeOffset;
+    //}
+
+    private System.Collections.IEnumerator FlyAwayWithChime(GameObject chime)
     {
-        Debug.LogWarning("Missing childWaitSpace reference.");
-        yield break;
+        if (childWaitSpace == null)
+        {
+            Debug.LogWarning("Missing childWaitSpace reference.");
+            yield break;
+        }
+
+        float duration = 40f;
+        float floatDuration = 5f;
+        float time = 0f;
+
+        Vector3 start = transform.position;
+        Vector3 end = childWaitSpace.position;
+        Vector3 controlPoint = (start + end) / 2f + Vector3.down * 1.5f;
+
+        // 随机的轻微水平漂移
+        float horizontalWiggleRange = 0.3f;
+        float horizontalOffset = Random.Range(-horizontalWiggleRange, horizontalWiggleRange);
+        Vector3 lateralOffset = new Vector3(horizontalOffset, 0f, 0f);
+
+        while (time < duration)
+        {
+            float t = time / duration;
+            float easedT = t * t * (3f - 2f * t); // EaseInOut
+
+            Vector3 bezierPos =
+                Mathf.Pow(1 - easedT, 2) * start +
+                2 * (1 - easedT) * easedT * (controlPoint + lateralOffset) +
+                Mathf.Pow(easedT, 2) * end;
+
+            float floatStrength = Mathf.Clamp01(1 - (time / floatDuration));
+            float floatOffsetY = Mathf.Sin(time * Mathf.PI * 0.5f) * 0.2f * floatStrength;
+            Vector3 floatingOffset = Vector3.up * floatOffsetY;
+
+            transform.position = bezierPos + floatingOffset;
+            transform.Rotate(Vector3.up, 10f * Time.deltaTime);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = end;
+
+        if (chimeAttachPoint != null)
+        {
+            chime.transform.position = chimeAttachPoint.position;
+            chime.transform.rotation = chimeAttachPoint.rotation;
+            //chime.transform.SetParent(chimeAttachPoint); // 可选：挂上去
+        }
     }
 
-    float duration = 40f;
-    float floatDuration = 5f; // 起伏只持续前5秒
-    float time = 0f;
-
-    Vector3 start = transform.position;
-    Vector3 end = childWaitSpace.position;
-    Vector3 controlPoint = (start + end) / 2f + Vector3.down * 1.5f;
-
-    Vector3 chimeOffset = Vector3.down * 0.25f;
-
-    // 随机的轻微水平漂移
-    float horizontalWiggleRange = 0.3f;
-    float horizontalOffset = Random.Range(-horizontalWiggleRange, horizontalWiggleRange);
-    Vector3 lateralOffset = new Vector3(horizontalOffset, 0f, 0f);
-
-    while (time < duration)
-    {
-        float t = time / duration;
-        float easedT = t * t * (3f - 2f * t); // EaseInOut
-
-        // 贝塞尔路径（带少量横向偏移）
-        Vector3 bezierPos =
-            Mathf.Pow(1 - easedT, 2) * start +
-            2 * (1 - easedT) * easedT * (controlPoint + lateralOffset) +
-            Mathf.Pow(easedT, 2) * end;
-
-        // 轻微浮动：1~2次慢速起伏
-        float floatStrength = Mathf.Clamp01(1 - (time / floatDuration));
-        float floatOffsetY = Mathf.Sin(time * Mathf.PI * 0.5f) * 0.2f * floatStrength; // 慢速，幅度小
-        Vector3 floatingOffset = Vector3.up * floatOffsetY;
-
-        //Transform target = GetChildTransform();
-
-        // 设置位置
-        transform.position = bezierPos + floatingOffset;
-        //chime.transform.position = bezierPos + chimeOffset + floatingOffset;
-
-        // 轻微旋转
-        transform.Rotate(Vector3.up, 10f * Time.deltaTime);
-        //chime.transform.Rotate(Vector3.up, 20f * Time.deltaTime);
-
-        time += Time.deltaTime;
-        yield return null;
-    }
-
-    // 精准落点
-    transform.position = end;
-    chime.transform.position = end + chimeOffset;
-}
 
 
 
