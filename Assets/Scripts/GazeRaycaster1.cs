@@ -69,7 +69,7 @@ public class GazeRaycaster1 : MonoBehaviour
             gazedAtObject.SendMessage("OnGazeExit", SendMessageOptions.DontRequireReceiver);
 
         gazeTimer = 0f;
-        gazeText.text = "";
+        //gazeText.text = "";
         gazedAtObject = null;
     }
 }
