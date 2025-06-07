@@ -40,11 +40,11 @@ public class ChildInteraction1 : MonoBehaviour
         if (hasReceivedChime) return;
 
         GameObject matchingChime = backpack.FindAttachedChime(requiredMelodyID);
-        Debug.Log($"Looking for chime with melody ID: {requiredMelodyID}");
+        //Debug.Log($"Looking for chime with melody ID: {requiredMelodyID}");
 
         if (matchingChime != null)
         {
-            Debug.Log("Found matching chime: " + matchingChime.name);
+            //Debug.Log("Found matching chime: " + matchingChime.name);
             hasReceivedChime = true;
 
             // ShowText(successText);
@@ -54,7 +54,7 @@ public class ChildInteraction1 : MonoBehaviour
         }
         else
         {
-            Debug.Log("No matching chime found.");
+            //Debug.Log("No matching chime found.");
             // ShowText(failureText);
             GazeRaycaster1.instance.gazeText.text = failureText;
         }
@@ -107,7 +107,7 @@ public class ChildInteraction1 : MonoBehaviour
     {
         if (childLight == null || sphereTargetAttachPoint == null)
         {
-            Debug.LogWarning("Missing childLight or sphereTargetAttachPoint reference.");
+            //Debug.LogWarning("Missing childLight or sphereTargetAttachPoint reference.");
             yield break;
         }
 
@@ -189,7 +189,7 @@ public class ChildInteraction1 : MonoBehaviour
     {
         if (childWaitSpace == null)
         {
-            Debug.LogWarning("Missing childWaitSpace reference.");
+            //Debug.LogWarning("Missing childWaitSpace reference.");
             yield break;
         }
 

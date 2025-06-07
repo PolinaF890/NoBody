@@ -22,6 +22,7 @@ public class ThreadMaterialController : MonoBehaviour
         currentIndex = (currentIndex + 1) % materials.Length;
         line.sharedMaterial = materials[currentIndex];
 
-        Debug.Log($"Материал сменился на: {materials[currentIndex].name}");
+        //Debug.Log($"Материал сменился на: {materials[currentIndex].name}");
+        //Debug.Log($"Материал сменился на: {materials[currentIndex].name}");
     }
 }
