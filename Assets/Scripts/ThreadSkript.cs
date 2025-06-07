@@ -22,8 +22,12 @@ public class ThreadToCamera : MonoBehaviour
     public Material MaterialThread2;
     public Material MaterialThread3;
 
+    [Header("Melody Detection")]
+    public Transform melodyParent; // where to detect the sphere
+
     private LineRenderer line;
     private int melodyCount = 0;
+    private int lastMelodyCount = 0;
 
     void Start()
     {
@@ -61,36 +65,78 @@ public class ThreadToCamera : MonoBehaviour
             }
         }
 
-        // Обработка нажатий клавиш
-        if (Keyboard.current != null)
+        //// Обработка нажатий клавиш, keyword test
+        //if (Keyboard.current != null)
+        //{
+        //    if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        //        OnMelodyCollected("own.melody");
+
+        //    if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        //        OnMelodyCollected("own.melody2");
+
+        //    if (Keyboard.current.digit3Key.wasPressedThisFrame)
+        //        OnMelodyCollected("own.melody3");
+        //}
+
+        //// Применение базового материала, если ничего не собрано
+        //if (melodyCount == 0 && MaterialBase != null && line.sharedMaterial != MaterialBase)
+        //{
+        //    line.sharedMaterial = MaterialBase;
+        //}
+
+        if (melodyParent != null)
         {
-            if (Keyboard.current.digit1Key.wasPressedThisFrame)
-                OnMelodyCollected("own.melody");
+            int currentCount = melodyParent.childCount;
 
-            if (Keyboard.current.digit2Key.wasPressedThisFrame)
-                OnMelodyCollected("own.melody2");
-
-            if (Keyboard.current.digit3Key.wasPressedThisFrame)
-                OnMelodyCollected("own.melody3");
+            if (currentCount != lastMelodyCount)
+            {
+                lastMelodyCount = currentCount;
+                OnMelodyCountChanged(currentCount); 
+            }
         }
 
-        // Применение базового материала, если ничего не собрано
-        if (melodyCount == 0 && MaterialBase != null && line.sharedMaterial != MaterialBase)
-        {
-            line.sharedMaterial = MaterialBase;
-        }
     }
 
-    public void OnMelodyCollected(string melodyName)
+    // keyboard test
+    //public void OnMelodyCollected(string melodyName)
+    //{
+    //    if (melodyName != "own.melody" && melodyName != "own.melody2" && melodyName != "own.melody3")
+    //        return;
+
+    //    melodyCount++;
+    //    Debug.Log($"Мелодия получена: {melodyName}. Счётчик: {melodyCount}");
+
+    //    switch (melodyCount)
+    //    {
+    //        case 1:
+    //            if (MaterialThread1 != null)
+    //                line.sharedMaterial = MaterialThread1;
+    //            break;
+    //        case 2:
+    //            if (MaterialThread2 != null)
+    //                line.sharedMaterial = MaterialThread2;
+    //            break;
+    //        case 3:
+    //            if (MaterialThread3 != null)
+    //                line.sharedMaterial = MaterialThread3;
+    //            break;
+    //        default:
+    //            Debug.Log("Максимальное количество смен достигнуто");
+    //            break;
+    //    }
+    //}
+
+    private void OnMelodyCountChanged(int count)
     {
-        if (melodyName != "own.melody" && melodyName != "own.melody2" && melodyName != "own.melody3")
-            return;
+        melodyCount = count;
+        Debug.Log($"melody number: {count}");
 
-        melodyCount++;
-        Debug.Log($"Мелодия получена: {melodyName}. Счётчик: {melodyCount}");
-
-        switch (melodyCount)
+        switch (count)
         {
+            case 0:
+                if (MaterialBase != null)
+                    line.sharedMaterial = MaterialBase;
+                break;
             case 1:
                 if (MaterialThread1 != null)
                     line.sharedMaterial = MaterialThread1;
@@ -104,7 +150,7 @@ public class ThreadToCamera : MonoBehaviour
                     line.sharedMaterial = MaterialThread3;
                 break;
             default:
-                Debug.Log("Максимальное количество смен достигнуто");
+                Debug.Log("more than 3");
                 break;
         }
     }
